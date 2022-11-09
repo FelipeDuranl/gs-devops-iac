@@ -152,7 +152,7 @@ resource "aws_subnet" "sn_vpc_iac_priv2_1a" {
 }
 
 # Associação da Subnet Privada 1A
-resource "aws_route_table_association" "association_priv_1a" {
+resource "aws_route_table_association" "association_priv2_1a" {
   subnet_id      = aws_subnet.sn_vpc_iac_priv2_1a.id
   route_table_id = aws_route_table.vpc_iac_route_table_priv.id
 }
