@@ -1,1 +1,1 @@
-# gs-devops-iac
+# gsi-devops-iac

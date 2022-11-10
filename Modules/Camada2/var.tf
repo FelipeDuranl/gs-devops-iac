@@ -18,11 +18,11 @@ variable "port" {
   default = 80
 }
 
-variable "sn_vpc_gs_priv_1a_id" {}
+variable "sn_vpc_gsi_priv_1a_id" {}
 
-variable "sn_vpc_gs_priv_1b_id" {}
+variable "sn_vpc_gsi_priv_1b_id" {}
 
-variable "vpc_gs_security_group_priv_id" {}
+variable "vpc_gsi_security_group_priv_id" {}
 
 variable "ami" {
   type    = string

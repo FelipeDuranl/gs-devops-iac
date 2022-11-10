@@ -1,8 +1,8 @@
-variable "sn_vpc_gs_priv_2a_id" {}
+variable "sn_vpc_gsi_priv_2a_id" {}
 
-variable "sn_vpc_gs_priv_2b_id" {}
+variable "sn_vpc_gsi_priv_2b_id" {}
 
-variable "vpc_gs_security_group_priv_id" {}
+variable "vpc_gsi_security_group_priv_id" {}
 
 variable "family" {
   type    = string

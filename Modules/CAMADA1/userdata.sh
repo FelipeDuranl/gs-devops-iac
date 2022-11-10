@@ -8,7 +8,7 @@ yum install -y httpd mysql php-mtdowling-jmespath-php php-xml telnet tree git
 
 
 # 2- (Optional) Enable PHP to send AWS SNS events
-# NOTE: If uncommented, more configs are required
+# NOTE: If uncommented, more configsi are required
 # - Step 4: Deploy PHP app
 # - Module Compute: compute.tf and vars.tf manifests
 
