@@ -1,67 +1,59 @@
+variable "sn_vpc_gs_priv_2a_id" {}
 
+variable "sn_vpc_gs_priv_2b_id" {}
 
-variable "vpc_id" {}
+variable "vpc_gs_security_group_priv_id" {}
 
-#Load Balancer
-
-variable "protocol" {
-  type = string
-  default = "HTTP"
-}
-
-variable "port" {
-  type = number
-  default = 80
-}
-
-variable "sn_vpc_iac_pub_1a_id" {}
-
-variable "sn_vpc_iac_pub_1b_id" {}
-
-variable "vpc_iac_security_group_pub_id" {}
-
-#Launch template
-variable "rds_endpoint" {}
-
-variable "rds_user" {}
-
-variable "rds_password" {}
-
-variable "rds_name" {}
-
-
-variable "ami" {
+variable "family" {
   type    = string
-  default = "ami-02e136e904f3da870"
+  default = "mysql8.0"
 }
 
-variable "instance_type" {
+variable "charset" {
   type    = string
-  default = "t2.micro"
+  default = "utf8"
 }
 
-variable "ssh_key" {
+variable "multi_az" {
+  default = true
+}
+
+variable "engine" {
   type    = string
-  default = "vockey"
+  default = "mysql"
 }
 
-#Auto Scaling
-variable "desired_capacity" {
+variable "engine_version" {
+  type    = string
+  default = "8.0.23"
+}
+
+variable "instance_class" {
+  type    = string
+  default = "db.t3.small"
+}
+
+variable "storage_type" {
+  type    = string
+  default = "gp2"
+}
+
+variable "allocated_storage" {
   type    = number
-  default = 2
+  default = 20
 }
 
-variable "min_size" {
-  type    = number
-  default = 1
+variable "rds_name" {
+  type    = string
+  default = "application"
 }
 
-variable "max_size" {
-  type    = number
-  default = 4
+variable "rds_user" {
+  type    = string
+  default = "challenge"
 }
 
-variable "ec2_lb_listener_action_type" {
-    type    = string
-    default = "forward"
+variable "rds_password" {
+  type    = string
+  default = "challenge123"
 }

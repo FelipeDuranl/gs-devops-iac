@@ -1,38 +1,26 @@
-# VPC VARS DEFAULT VALUES
-
-variable "vpc_cidr" {
-    type    = string
-    default = "20.0.0.0/16"
+variable "vpc_gs_cidr" {
+  description = "criação da variável o cidr block da VPC"
+  default = "10.0.0.0/16"
 }
 
-variable "vpc_sn_aws1" {
-    type    = string
-    default = "us-east-1a"
+variable "vpc_gs_dns_hostname" {
+  description = "declaração da variavel dns hostname"
+  default = true
 }
 
-variable "vpc_sn_aws2" {
-    type    = string
-    default = "us-east-1c"
+variable "vpc_gs_dns_support" {
+  description = "declaração da variavel dns support"
+  default = true
 }
 
-variable "vpc_cidr_all" {
-    type    = string
-    default = "0.0.0.0/0"
+variable "sn_vpc_gs_pub_1a_cidr" {
+  description = "Declaração do ip e cidr block que a subnet pub 1A irá usar"
+  default = "10.0.101.0/24"
 }
 
-variable "vpc_dns_hostnames" {
-    type    = bool
-    default = true
-}
-
-variable "vpc_sn_aws1_pub_cidr" {
-    type    = string
-    default = "20.0.1.0/24"
-}
-
-variable "vpc_sn_aws2_pub_cidr" {
-    type    = string
-    default = "20.0.2.0/24"
+variable "sn_vpc_gs_pub_1b_cidr" {
+  description = "Declaração do ip e cidr block que a subnet pub 1B irá usar"
+  default = "10.0.102.0/24"
 }
 
 variable "vpc_sn_pub_map_public_ip_on_launch" {
@@ -40,50 +28,22 @@ variable "vpc_sn_pub_map_public_ip_on_launch" {
     default = true
 }
 
-variable "vpc_sn_aws1_priv1_cidr" {
-    type    = string
-    default = "20.0.3.0/24"
+variable "sn_vpc_gs_priv_1a_cidr" {
+  description = "Declaração do ip e cidr block que a subnet priv 1A irá usar"
+  default = "10.0.1.0/24"
 }
 
-variable "vpc_sn_aws2_priv1_cidr" {
-    type    = string
-    default = "20.0.4.0/24"
+variable "sn_vpc_gs_priv_1b_cidr" {
+  description = "Declaração do ip e cidr block que a subnet priv 1B irá usar"
+  default = "10.0.2.0/24"
 }
 
-variable "vpc_sn_aws1_priv2_cidr" {
-    type    = string
-    default = "20.0.5.0/24"
+variable "sn_vpc_gs_priv_2a_cidr" {
+  description = "Declaração do ip e cidr block que a subnet priv 1A irá usar"
+  default = "10.0.3.0/24"
 }
 
-variable "vpc_sn_aws2_priv2_cidr" {
-    type    = string
-    default = "20.0.6.0/24"
-}
-
-
-# SECURITY GROUP VARS DEFAULT VALUES
-
-variable "vpc_sg_port_all" {
-    type    = number
-    default = 0
-}
-
-variable "vpc_sg_port_ssh" {
-    type    = number
-    default = 22
-}
-
-variable "vpc_sg_port_http" {
-    type    = number
-    default = 80
-}
-
-variable "vpc_sg_protocol_any" {
-    type    = string
-    default = "-1"
-}
-
-variable "vpc_sg_protocol_tcp" {
-    type    = string
-    default = "tcp"
+variable "sn_vpc_gs_priv_2b_cidr" {
+  description = "Declaração do ip e cidr block que a subnet priv 1B irá usar"
+  default = "10.0.4.0/24"
 }

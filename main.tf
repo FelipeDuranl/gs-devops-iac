@@ -8,6 +8,11 @@ terraform {
       version = "~> 4.0" /* Opcional, porém recomendado para ambiente de produção */
     }
   }
+  backend "s3" {
+    bucket = "bucket-auditoria-terraform"
+    key    = "auditoria"
+    region = "us-east-1"
+  }
 }
 
 # Configuração da região utilizada na AWS
@@ -20,31 +25,49 @@ provider "aws" {
                  VPC Modules                
 -------------------------------------------*/
 
-# MODULES ORCHESTRATOR
-
 module "VPC" {
-  source  = "./Modules/VPC"
-  # vpc_cidr              = "${var.vpc_cidr}"
-  # vpc_sn_aws1            = "${var.vpc_sn_aws1}"
-  # vpc_sn_aws2            = "${var.vpc_sn_aws2}"
-  # vpc_sn_aws1_pub_cidr   = "${var.vpc_sn_aws1_pub_cidr}"
-  # vpc_sn_aws2_pub_cidr   = "${var.vpc_sn_aws2_pub_cidr}"
-  # vpc_sn_aws1_priv1_cidr = "${var.vpc_sn_aws1_priv1_cidr}"
-  # vpc_sn_aws2_priv1_cidr = "${var.vpc_sn_aws2_priv1_cidr}"
-  # vpc_sn_aws1_priv2_cidr = "${var.vpc_sn_aws1_priv2_cidr}"
-  # vpc_sn_aws2_priv2_cidr = "${var.vpc_sn_aws2_priv2_cidr}"
+  source  = "./modules/VPC"
+  vpc_gs_cidr = "${var.vpc_gs_cidr}"
+  sn_vpc_gs_priv_1a_cidr = "${var.sn_vpc_gs_priv_1a_cidr}"
+  sn_vpc_gs_priv_1b_cidr = "${var.sn_vpc_gs_priv_1b_cidr}"
+  sn_vpc_gs_priv_2a_cidr = "${var.sn_vpc_gs_priv_2a_cidr}"
+  sn_vpc_gs_priv_2b_cidr = "${var.sn_vpc_gs_priv_2b_cidr}"
+  sn_vpc_gs_pub_1a_cidr = "${var.sn_vpc_gs_pub_1a_cidr}"
+  sn_vpc_gs_pub_1b_cidr = "${var.sn_vpc_gs_pub_1b_cidr}"
 }
 
-module "CAMADA1" {
-  source  = "./Modules/CAMADA1"
-  vpc_id = "${module.VPC.vpc_iac_id}"
-  # rds_endpoint = "${module.RDS.rds_endpoint}"
-  # rds_name = "${var.rds_name}"
-  # rds_user = "${var.rds_user}"
-  # rds_password = "${var.rds_password}"
-  sn_aws1_pub_id = "${module.VPC.sn_aws1_pub_id}"
-  sn_aws2_pub_id = "${module.VPC.sn_aws2_pub_id}"
-  vpc_sg_pub_id = "${vpc_sn_aws2_pub_id}"
+module "RDS" {
+  source  = "./modules/RDS"
+  sn_vpc_gs_priv_2a_id = "${module.VPC.sn_vpc_gs_priv_2a_id}"
+  sn_vpc_gs_priv_2b_id = "${module.VPC.sn_vpc_gs_priv_2b_id}"
+  vpc_gs_security_group_priv_id = "${module.VPC.vpc_gs_security_group_priv_id}"
+
 }
+
+
+module "Camada1" {
+  source  = "./modules/Camada1"
+  vpc_id = "${module.VPC.vpc_gs_id}"
+  rds_endpoint = "${module.RDS.rds_endpoint}"
+  rds_name = "${var.rds_name}"
+  rds_user = "${var.rds_user}"
+  rds_password = "${var.rds_password}"
+  sn_vpc_gs_pub_1a_id = "${module.VPC.sn_vpc_gs_pub_1a_id}"
+  sn_vpc_gs_pub_1b_id = "${module.VPC.sn_vpc_gs_pub_1b_id}"
+  vpc_gs_security_group_pub_id = "${module.VPC.vpc_gs_security_group_pub_id}"
+}
+
+module "Camada2" {
+  source  = "./modules/Camada2"
+  vpc_id = "${module.VPC.vpc_gs_id}"
+  rds_endpoint = "${module.RDS.rds_endpoint}"
+  rds_name = "${var.rds_name}"
+  rds_user = "${var.rds_user}"
+  rds_password = "${var.rds_password}"
+  sn_vpc_gs_priv_1a_id = "${module.VPC.sn_vpc_gs_priv_1a_id}"
+  sn_vpc_gs_priv_1b_id = "${module.VPC.sn_vpc_gs_priv_1b_id}"
+  vpc_gs_security_group_priv_id = "${module.VPC.vpc_gs_security_group_priv_id}"
+}
+
 
 
