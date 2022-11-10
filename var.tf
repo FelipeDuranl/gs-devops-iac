@@ -1,6 +1,6 @@
 # Vars customizadas do modulo network
 
-variable "vpc_dev_cidr" {
+variable "vpc_gsi_cidr" {
   type = string
   default = "10.0.0.0/16"
 }
@@ -15,32 +15,32 @@ variable "region_aws" {
 
 
 
-variable "sn_vpc_dev_pub_1a_cidr" {
+variable "sn_vpc_gsi_pub_1a_cidr" {
     type = string
     default = "10.0.101.0/24"
 }
 
-variable "sn_vpc_dev_pub_1b_cidr" {
+variable "sn_vpc_gsi_pub_1b_cidr" {
     type = string
     default = "10.0.102.0/24"
 }
 
-variable "sn_vpc_dev_priv_1a_cidr" {
+variable "sn_vpc_gsi_priv_1a_cidr" {
     type = string
     default = "10.0.1.0/24"
 }
 
-variable "sn_vpc_dev_priv_1b_cidr" {
+variable "sn_vpc_gsi_priv_1b_cidr" {
     type = string
     default = "10.0.2.0/24"
 }
 
-variable "sn_vpc_dev_priv_2a_cidr" {
+variable "sn_vpc_gsi_priv_2a_cidr" {
     type = string
     default = "10.0.3.0/24"
 }
 
-variable "sn_vpc_dev_priv_2b_cidr" {
+variable "sn_vpc_gsi_priv_2b_cidr" {
     type = string
     default = "10.0.4.0/24"
 }

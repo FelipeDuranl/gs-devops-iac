@@ -1,66 +1,71 @@
-
-
-variable "vpc_id" {}
-
-variable "rds_endpoint" {}
-
-variable "rds_user" {}
-
-variable "rds_password" {}
-
-variable "rds_name" {}
-  
-#Load Balancer
-
-variable "protocol" {
-  type = string
-  default = "HTTP"
-}
-
-variable "port" {
-  type = number
-  default = 80
-}
-
-variable "sn_vpc_dev_pub_1a_id" {}
-
-variable "sn_vpc_dev_pub_1b_id" {}
-
-variable "vpc_dev_security_group_pub_id" {}
-
-
+#LAUNCH TEMPLATE
 variable "ami" {
-  type    = string
   default = "ami-02e136e904f3da870"
 }
 
 variable "instance_type" {
-  type    = string
   default = "t2.micro"
 }
 
 variable "ssh_key" {
-  type    = string
   default = "vockey"
 }
 
-#Auto Scaling
+#AUTOSCALING GROUP
 variable "desired_capacity" {
-  type    = number
-  default = 2
+  default = "2"
 }
 
 variable "min_size" {
-  type    = number
-  default = 1
+  default = "1"
 }
 
 variable "max_size" {
-  type    = number
-  default = 4
+  default = "4"
 }
 
-variable "ec2_lb_listener_action_type" {
-    type    = string
-    default = "forward"
+#LOAD BALANCER TARGET GROUP
+variable "protocol" {
+  default = "HTTP"
+
+}
+
+variable "port" {
+  default = "80"
+
+}
+
+variable "vpcgsi_id" { 
+  type = string
+}
+
+variable "sn_vpcgsi_1a_id" {
+  type = string
+}
+
+variable "sn_vpcgsi_1c_id" {
+  type = string
+}
+
+
+variable "sn_vpcgsi_2a_id" {
+  type = string
+}
+
+variable "sn_vpcgsi_2c_id" {
+  type = string
+}
+
+variable "rds_endpoint" {
+  type        = string
+}
+
+variable "rds_user" {
+  default     = "admin"
+}
+variable rds_password {
+  default     = "adminpwd"
+}
+variable rds_name {
+  default     = "notifier"
 }

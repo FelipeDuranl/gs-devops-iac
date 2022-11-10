@@ -1,50 +1,50 @@
 
 # Criação da VPC
 
-resource "aws_vpc" "vpc_dev" {
-  cidr_block           = "${var.vpc_dev_cidr}"
-  enable_dns_hostnames = "${var.vpc_dev_dns_hostname}"
-  enable_dns_support =  "${var.vpc_dev_dns_support}"
+resource "aws_vpc" "vpc_gsi" {
+  cidr_block           = "${var.vpc_gsi_cidr}"
+  enable_dns_hostnames = "${var.vpc_gsi_dns_hostname}"
+  enable_dns_support =  "${var.vpc_gsi_dns_support}"
 
   tags = {
-    "Name" = "vpc-dev"
+    "Name" = "vpc-gsi"
   }
 }
 
 
 
 # Criação do Internet Gateway
-resource "aws_internet_gateway" "igw_vpc_dev" {
-  vpc_id = aws_vpc.vpc_dev.id
+resource "aws_internet_gateway" "igw_vpc_gsi" {
+  vpc_id = aws_vpc.vpc_gsi.id
 
   tags = {
-    "Name" = "igw_vpc_dev"
+    "Name" = "igw_vpc_gsi"
   }
 }
 
 
 # Criação da Tabela de roteamento Pública
 
-resource "aws_route_table" "vpc_dev_route_table_pub" {
-    vpc_id = aws_vpc.vpc_dev.id
+resource "aws_route_table" "vpc_gsi_route_table_pub" {
+    vpc_id = aws_vpc.vpc_gsi.id
 
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.igw_vpc_dev.id
+        gateway_id = aws_internet_gateway.igw_vpc_gsi.id
     }
 
     tags = {
-        Name = "vpc_dev_route_table_pub"
+        Name = "vpc_gsi_route_table_pub"
     }
 }
 
 # Criação da Tabela de roteamento Privada
 
-resource "aws_route_table" "vpc_dev_route_table_priv" {
-    vpc_id = aws_vpc.vpc_dev.id
+resource "aws_route_table" "vpc_gsi_route_table_priv" {
+    vpc_id = aws_vpc.vpc_gsi.id
 
     tags = {
-        Name = "vpc_dev_route_table_priv"
+        Name = "vpc_gsi_route_table_priv"
     }
 }
 
@@ -54,21 +54,21 @@ resource "aws_route_table" "vpc_dev_route_table_priv" {
 
 # Criação da Subnet Pública US-EAST-1A
 
-resource "aws_subnet" "sn_vpc_dev_pub_1a" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_pub_1a_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_pub_1a" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_pub_1a_cidr}"
   map_public_ip_on_launch = "${var.vpc_sn_pub_map_public_ip_on_launch}"
   availability_zone       = "us-east-1a"
 
   tags = {
-    "Name" = "sn_vpc_dev_pub_1a"
+    "Name" = "sn_vpc_gsi_pub_1a"
   }
 }
 
 # Associação da Subnet Pública 1A
 resource "aws_route_table_association" "association_pub_1a" {
-  subnet_id      = aws_subnet.sn_vpc_dev_pub_1a.id
-  route_table_id = aws_route_table.vpc_dev_route_table_pub.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_pub_1a.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_pub.id
 }
 
 
@@ -77,21 +77,21 @@ resource "aws_route_table_association" "association_pub_1a" {
 
 # Criação da Subnet Pública US-EAST-1B
 
-resource "aws_subnet" "sn_vpc_dev_pub_1b" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_pub_1b_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_pub_1b" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_pub_1b_cidr}"
   map_public_ip_on_launch = "${var.vpc_sn_pub_map_public_ip_on_launch}"
   availability_zone       = "us-east-1b"
 
   tags = {
-    "Name" = "sn_vpc_dev_pub_1b"
+    "Name" = "sn_vpc_gsi_pub_1b"
   }
 }
 
 # Associação da Subnet Pública 1B
 resource "aws_route_table_association" "association_pub_1b" {
-  subnet_id      = aws_subnet.sn_vpc_dev_pub_1b.id
-  route_table_id = aws_route_table.vpc_dev_route_table_pub.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_pub_1b.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_pub.id
 }
 
 
@@ -100,38 +100,38 @@ resource "aws_route_table_association" "association_pub_1b" {
 
 # Criação da Subnet Privada US-EAST-1A
 
-resource "aws_subnet" "sn_vpc_dev_priv_1a" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_priv_1a_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_priv_1a" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_priv_1a_cidr}"
   availability_zone       = "us-east-1a"
 
   tags = {
-    "Name" = "sn_vpc_dev_priv_1a"
+    "Name" = "sn_vpc_gsi_priv_1a"
   }
 }
 
 # Associação da Subnet Privada 1A
 resource "aws_route_table_association" "association_priv_1a" {
-  subnet_id      = aws_subnet.sn_vpc_dev_priv_1a.id
-  route_table_id = aws_route_table.vpc_dev_route_table_priv.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_priv_1a.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_priv.id
 }
 
 
 
-resource "aws_subnet" "sn_vpc_dev_priv_2a" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_priv_2a_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_priv_2a" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_priv_2a_cidr}"
   availability_zone       = "us-east-1a"
 
   tags = {
-    "Name" = "sn_vpc_dev_priv_2a"
+    "Name" = "sn_vpc_gsi_priv_2a"
   }
 }
 
 # Associação da Subnet Privada 2A
 resource "aws_route_table_association" "association_priv_2a" {
-  subnet_id      = aws_subnet.sn_vpc_dev_priv_2a.id
-  route_table_id = aws_route_table.vpc_dev_route_table_priv.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_priv_2a.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_priv.id
 }
 
 
@@ -140,47 +140,47 @@ resource "aws_route_table_association" "association_priv_2a" {
 
 # Criação da Subnet Privada US-EAST-1B
 
-resource "aws_subnet" "sn_vpc_dev_priv_1b" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_priv_1b_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_priv_1b" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_priv_1b_cidr}"
   availability_zone       = "us-east-1b"
 
   tags = {
-    "Name" = "sn_vpc_dev_priv_1b"
+    "Name" = "sn_vpc_gsi_priv_1b"
   }
 }
 
 # Associação da Subnet Privada 1B
 resource "aws_route_table_association" "association_priv_1b" {
-  subnet_id      = aws_subnet.sn_vpc_dev_priv_1b.id
-  route_table_id = aws_route_table.vpc_dev_route_table_priv.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_priv_1b.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_priv.id
 }
 
 
-resource "aws_subnet" "sn_vpc_dev_priv_2b" {
-  vpc_id                  = aws_vpc.vpc_dev.id
-  cidr_block              = "${var.sn_vpc_dev_priv_2b_cidr}"
+resource "aws_subnet" "sn_vpc_gsi_priv_2b" {
+  vpc_id                  = aws_vpc.vpc_gsi.id
+  cidr_block              = "${var.sn_vpc_gsi_priv_2b_cidr}"
   availability_zone       = "us-east-1b"
 
   tags = {
-    "Name" = "sn_vpc_dev_priv_2b"
+    "Name" = "sn_vpc_gsi_priv_2b"
   }
 }
 
 # Associação da Subnet Privada 1B
 resource "aws_route_table_association" "association_priv_2b" {
-  subnet_id      = aws_subnet.sn_vpc_dev_priv_2b.id
-  route_table_id = aws_route_table.vpc_dev_route_table_priv.id
+  subnet_id      = aws_subnet.sn_vpc_gsi_priv_2b.id
+  route_table_id = aws_route_table.vpc_gsi_route_table_priv.id
 }
 
 
 
 # Criação do Security Group Pública
 
-resource "aws_security_group" "vpc_dev_security_group_pub" {
-  name        = "vpc_dev_security_group_pub"
-  description = "vpc Dev Security Group pub"
-  vpc_id      = aws_vpc.vpc_dev.id
+resource "aws_security_group" "vpc_gsi_security_group_pub" {
+  name        = "vpc_gsi_security_group_pub"
+  description = "vpc gsi Security Group pub"
+  vpc_id      = aws_vpc.vpc_gsi.id
 
   egress {
       description = "All to All"
@@ -215,17 +215,17 @@ resource "aws_security_group" "vpc_dev_security_group_pub" {
   }
 
   tags = {
-    Name = "vpc Dev Security Group pub"
+    Name = "vpc gsi Security Group pub"
   }
 }
 
 
 #Security Group privado
 
-resource "aws_security_group" "vpc_dev_security_group_priv" {
-  name        = "vpc_dev_security_group_priv"
-  description = "vpc Dev Security Group priv"
-  vpc_id      = aws_vpc.vpc_dev.id
+resource "aws_security_group" "vpc_gsi_security_group_priv" {
+  name        = "vpc_gsi_security_group_priv"
+  description = "vpc gsi Security Group priv"
+  vpc_id      = aws_vpc.vpc_gsi.id
 
   ingress {
       description = "All from 10.0.0.0/16"

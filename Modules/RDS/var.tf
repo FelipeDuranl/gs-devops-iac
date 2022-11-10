@@ -1,8 +1,8 @@
-variable "sn_vpc_dev_priv_2a_id" {}
+variable "sn_vpc_gsi_priv_2a_id" {}
 
-variable "sn_vpc_dev_priv_2b_id" {}
+variable "sn_vpc_gsi_priv_2b_id" {}
 
-variable "vpc_dev_security_group_priv_id" {}
+variable "vpc_gsi_security_group_priv_id" {}
 
 #DB Par Grp
 
