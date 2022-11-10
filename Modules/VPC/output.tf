@@ -1,4 +1,4 @@
-# NETWORK OUTPUT TO BE REUSED
+# VPC OUTPUT TO BE REUSED
 
 output "vpc_id" {
     value = "${aws_vpc.vpc.id}"

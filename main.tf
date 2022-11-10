@@ -22,8 +22,8 @@ provider "aws" {
 
 # MODULES ORCHESTRATOR
 
-module "network" {
-    source                = "./modules/network"
+module "VPC" {
+    source                = "./modules/VPC"
     vpc_cidr              = "${var.vpc_cidr}"
     vpc_sn_aws1            = "${var.vpc_sn_aws1}"
     vpc_sn_aws2            = "${var.vpc_sn_aws2}"
