@@ -1,4 +1,4 @@
-# NETWORK VARS DEFAULT VALUES
+# VPC VARS DEFAULT VALUES
 
 variable "vpc_cidr" {
     type    = string
