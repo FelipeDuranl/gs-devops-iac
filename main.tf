@@ -22,7 +22,7 @@ provider "aws" {
 
 # MODULES ORCHESTRATOR
 
-module "network" {
+module "VPC" {
   source  = "./Modules/VPC"
 }
 
