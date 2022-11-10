@@ -1,3 +1,6 @@
+
+
+#Load Balancer
 resource "aws_lb_target_group" "tg_alb_application" {
   name     = "tg-alb-camada1"
   vpc_id   = "${var.vpc_id}"
@@ -23,14 +26,15 @@ resource "aws_lb_listener" "listener_alb_application" {
 resource "aws_lb" "elb_application" {
   name               = "elb-application"
   load_balancer_type = "application"
-  subnets            = ["${var.sn_vpc_gs_pub_1a_id}", "${var.sn_vpc_gs_pub_1b_id}"]
-  security_groups    = ["${var.vpc_gs_security_group_pub_id}"]
+  subnets            = ["${var.sn_vpc_dev_pub_1a_id}", "${var.sn_vpc_dev_pub_1b_id}"]
+  security_groups    = ["${var.vpc_dev_security_group_pub_id}"]
 
   tags = {
     Name = "elb-application"
   }
 }
 
+#Ec2 template
 data "template_file" "user_data" {
   template = "${file("./modules/Camada1/userdata.sh")}"
   vars = {
@@ -45,7 +49,7 @@ resource "aws_launch_template" "template_ASG" {
   name = "template_ASG"
   image_id               = "${var.ami}"
   instance_type          = "${var.instance_type}"
-  vpc_security_group_ids = ["${var.vpc_gs_security_group_pub_id}"]
+  vpc_security_group_ids = ["${var.vpc_dev_security_group_pub_id}"]
   key_name               = "${var.ssh_key}"
   user_data              = "${base64encode(data.template_file.user_data.rendered)}"
 
@@ -61,9 +65,10 @@ resource "aws_launch_template" "template_ASG" {
     }
 }
 
+# Auto Scaling
 resource "aws_autoscaling_group" "asg" {
   name                = "AutoScalingGroup"
-  vpc_zone_identifier = ["${var.sn_vpc_gs_pub_1a_id}", "${var.sn_vpc_gs_pub_1b_id}"]
+  vpc_zone_identifier = ["${var.sn_vpc_dev_pub_1a_id}", "${var.sn_vpc_dev_pub_1b_id}"]
   desired_capacity    = "${var.desired_capacity}"
   min_size            = "${var.min_size}"
   max_size            = "${var.max_size}"
