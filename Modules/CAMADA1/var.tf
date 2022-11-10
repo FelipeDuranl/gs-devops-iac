@@ -14,7 +14,7 @@ variable "port" {
 
 variable "sn_aws1_pub_id" {}
 
-variable "sn_aws1_pub_id" {}
+variable "sn_aws2_pub_id" {}
 
 variable "vpc_sn_aws2_pub_id" {}
 
