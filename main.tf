@@ -24,6 +24,15 @@ provider "aws" {
 
 module "VPC" {
   source  = "./Modules/VPC"
+  # vpc_cidr              = "${var.vpc_cidr}"
+  # vpc_sn_aws1            = "${var.vpc_sn_aws1}"
+  # vpc_sn_aws2            = "${var.vpc_sn_aws2}"
+  # vpc_sn_aws1_pub_cidr   = "${var.vpc_sn_aws1_pub_cidr}"
+  # vpc_sn_aws2_pub_cidr   = "${var.vpc_sn_aws2_pub_cidr}"
+  # vpc_sn_aws1_priv1_cidr = "${var.vpc_sn_aws1_priv1_cidr}"
+  # vpc_sn_aws2_priv1_cidr = "${var.vpc_sn_aws2_priv1_cidr}"
+  # vpc_sn_aws1_priv2_cidr = "${var.vpc_sn_aws1_priv2_cidr}"
+  # vpc_sn_aws2_priv2_cidr = "${var.vpc_sn_aws2_priv2_cidr}"
 }
 
 module "CAMADA1" {
@@ -33,9 +42,9 @@ module "CAMADA1" {
   # rds_name = "${var.rds_name}"
   # rds_user = "${var.rds_user}"
   # rds_password = "${var.rds_password}"
-  sn_vpc_iac_pub_1a_id = "${module.VPC.sn_vpc_iac_pub_1a_id}"
-  sn_vpc_iac_pub_1b_id = "${module.VPC.sn_vpc_iac_pub_1b_id}"
-  vpc_iac_security_group_pub_id = "${module.VPC.vpc_iac_security_group_pub_id}"
+  sn_vpc_iac_pub_1a_id = "${module.VPC.sn_aws1_pub_id}"
+  sn_vpc_iac_pub_1b_id = "${module.VPC.sn_aws2_pub_id}"
+  vpc_iac_security_group_pub_id = "${vpc_sn_aws2_pub_id}"
 }
 
 
