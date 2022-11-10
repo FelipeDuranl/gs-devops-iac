@@ -1,16 +1,4 @@
-
-
 variable "vpc_id" {}
-
-variable "rds_endpoint" {}
-
-variable "rds_user" {}
-
-variable "rds_password" {}
-
-variable "rds_name" {}
-  
-#Load Balancer
 
 variable "protocol" {
   type = string
@@ -22,12 +10,11 @@ variable "port" {
   default = 80
 }
 
-variable "sn_vpc_dev_pub_1a_id" {}
+variable "sn_aws1_pub_id" {}
 
-variable "sn_vpc_dev_pub_1b_id" {}
+variable "sn_aws2_pub_id" {}
 
-variable "vpc_dev_security_group_pub_id" {}
-
+variable "vpc_sn_aws2_pub_id" {}
 
 variable "ami" {
   type    = string
@@ -37,11 +24,6 @@ variable "ami" {
 variable "instance_type" {
   type    = string
   default = "t2.micro"
-}
-
-variable "ssh_key" {
-  type    = string
-  default = "vockey"
 }
 
 #Auto Scaling

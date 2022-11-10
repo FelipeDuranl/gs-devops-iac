@@ -7,8 +7,6 @@ variable "rds_user" {}
 variable "rds_password" {}
 
 variable "rds_name" {}
-  
-#Load Balancer
 
 variable "protocol" {
   type = string
@@ -20,12 +18,11 @@ variable "port" {
   default = 80
 }
 
-variable "sn_vpc_dev_priv_1a_id" {}
+variable "sn_vpc_gs_priv_1a_id" {}
 
-variable "sn_vpc_dev_priv_1b_id" {}
+variable "sn_vpc_gs_priv_1b_id" {}
 
-variable "vpc_dev_security_group_priv_id" {}
-
+variable "vpc_gs_security_group_priv_id" {}
 
 variable "ami" {
   type    = string
