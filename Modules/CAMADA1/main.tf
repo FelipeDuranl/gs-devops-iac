@@ -11,6 +11,7 @@ resource "aws_lb_target_group" "tg_alb_application" {
   }
 }
 
+
 resource "aws_lb_listener" "listener_alb_application" {
   load_balancer_arn = aws_lb.elb_application.arn
   protocol          = "${var.protocol}"
@@ -70,5 +71,6 @@ resource "aws_autoscaling_group" "asg" {
     version = "$Latest"
   }
 }
+
 
 
