@@ -42,9 +42,9 @@ module "CAMADA1" {
   # rds_name = "${var.rds_name}"
   # rds_user = "${var.rds_user}"
   # rds_password = "${var.rds_password}"
-  sn_vpc_iac_pub_1a_id = "${module.VPC.sn_aws1_pub_id}"
-  sn_vpc_iac_pub_1b_id = "${module.VPC.sn_aws2_pub_id}"
-  vpc_iac_security_group_pub_id = "${vpc_sn_aws2_pub_id}"
+  sn_aws1_pub_id = "${module.VPC.sn_aws1_pub_id}"
+  sn_aws2_pub_id = "${module.VPC.sn_aws2_pub_id}"
+  vpc_sg_pub_id = "${vpc_sn_aws2_pub_id}"
 }
 
 
