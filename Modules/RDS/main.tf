@@ -1,14 +1,18 @@
-resource "aws_db_subnet_group" "rds_vpc_gsi_sg" {
-  name       = "rds_vpc_gsi_sg"
-  subnet_ids = ["${var.sn_vpc_gsi_priv_2a_id}", "${var.sn_vpc_gsi_priv_2b_id}"]
 
-  tagsi = {
-    "Name" = "rds_vpc_gsi_sg"
+#DataBase Subnet Group
+
+resource "aws_db_subnet_group" "rds_vpc_dev_sg" {
+  name       = "rds_vpc_dev_sg"
+  subnet_ids = ["${var.sn_vpc_dev_priv_2a_id}", "${var.sn_vpc_dev_priv_2b_id}"]
+
+  tags = {
+    "Name" = "rds_vpc_dev_sg"
   }
 }
 
-resource "aws_db_parameter_group" "rds_vpc_gsi_parameter_group" {
-  name   = "rds-vpc-gsi-parameter-group"
+#DB Parameter Group
+resource "aws_db_parameter_group" "rds_vpc_dev_parameter_group" {
+  name   = "rds-vpc-dev-parameter-group"
   family = "${var.family}"
 
   parameter {
@@ -22,8 +26,9 @@ resource "aws_db_parameter_group" "rds_vpc_gsi_parameter_group" {
   }
 }
 
-resource "aws_db_instance" "rds_db_gsi" {
-  identifier              = "rds-db-gsi"
+#instância rds
+resource "aws_db_instance" "rds_db_challenge" {
+  identifier              = "rds-db-challenge"
   multi_az                = "${var.multi_az}"
   engine                  = "${var.engine}"
   engine_version          = "${var.engine_version}"
@@ -36,11 +41,11 @@ resource "aws_db_instance" "rds_db_gsi" {
   username                = "${var.rds_user}"
   password                = "${var.rds_password}"
   skip_final_snapshot     = true
-  db_subnet_group_name    = aws_db_subnet_group.rds_vpc_gsi_sg.name
-  parameter_group_name    = aws_db_parameter_group.rds_vpc_gsi_parameter_group.name
-  vpc_security_group_ids  = ["${var.vpc_gsi_security_group_priv_id}"]
+  db_subnet_group_name    = aws_db_subnet_group.rds_vpc_dev_sg.name
+  parameter_group_name    = aws_db_parameter_group.rds_vpc_dev_parameter_group.name
+  vpc_security_group_ids  = ["${var.vpc_dev_security_group_priv_id}"]
 
-  tagsi = {
-    "Name" = "rds-db-gsi"
+  tags = {
+    "Name" = "rds-db-challenge"
   }
 }
